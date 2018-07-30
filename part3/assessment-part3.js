@@ -12,9 +12,11 @@
 // with the animal as the context, and 'Trogdor' as a parameter.
 // return the result of your updateAnimal invocation
 
-// CODE HERE...
+const callBinding = (magicAnimals, updateAnimal, id) => {
+  let selectedAnimal = magicAnimals.filter(val => val.id === id);
 
-
+  return updateAnimal.call(selectedAnimal, "Trogdor");
+};
 
 // *************
 // * PROBLEM 2 *
@@ -27,9 +29,13 @@
 // with the context of the animal, and the array ['being majestic', 'eating rainbows'] as a parameter.
 // return the result of your updateAnimal invocation
 
-// CODE HERE...
-
-
+const applyBinding = (magicAnimals, updateAnimal, id) => {
+  let selectedAnimal = magicAnimals.filter(val => val.id === id);
+  return updateAnimal.apply(selectedAnimal[0], [
+    "being majestic",
+    "eating rainbows"
+  ]);
+};
 
 // *************
 // * PROBLEM 3 *
@@ -47,9 +53,13 @@
 
 var foo;
 
-// CODE HERE...
-
-
+const promiseMe = $q => {
+  return $q((resolve, reject) => {}).then(() => {
+    setTimeout(() => {
+      foo = "bar";
+    }, 20);
+  });
+};
 
 // *************
 // * PROBLEM 4 *
@@ -63,4 +73,14 @@ var foo;
 // Make an array of emails (array of strings) from the returned data (You will need to console log or debug to figure this out),
 // and then resolve the array as you complete your promise.
 
-// CODE HERE...
+const emailList = ($q, $http) => {
+  let arr = [];
+  return $q((resolve, reject) => {})
+    .then(() => {
+      $http({
+        method: "GET",
+        url: "/api/users"
+      }).then(emails => (arr = emails.data));
+    })
+    .then(() => resolve(arr));
+};
